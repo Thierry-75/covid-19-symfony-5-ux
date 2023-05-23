@@ -1,0 +1,281 @@
+<!DOCTYPE html >
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="covid 19 symfony">
+        <meta name="author" content="thdothee@gmail.com">
+        <link rel="shortcut icon" type="image/png" href="{{ asset('icons/favicon.ico') }}" />
+        <title>
+            {% block title %}Welcome!
+            {% endblock %}
+        </title>
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+    </head>
+    <body>
+        {% if mode is defined and mode == 'france' %}
+            <header>
+                <nav class="navbar fixed-top navbar-expand-lg navbar-light shadow-lg" style="background-color: #80E3EE;">
+                    <div class="container">
+                        <a class="navbar-brand" href="{{ path('app_home') }}">    <strong><img src="{{ asset('/icons/house-fill.svg') }}" data-placement="top" data-toggle="tooltip" title="Accueil" data-trigger="hover" width="20" height="20"></strong></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle"  href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <strong data-placement="top" data-toggle="tooltip" title="Données par région" data-trigger="hover">Régions</strong>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        {% for donnee in donnees %}
+                                            <a class="dropdown-item" href="{{ path('app_region', { 'region': donnee.nom }) }}">{{ donnee.nom }}</a>
+                                        {% endfor %}
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('app_country') }}"   data-placement="top" data-toggle="tooltip" title="Données mondiales" data-trigger="hover"><strong>Monde</strong></a>
+                                </li>
+                            </ul>
+
+                            <form class="form-inline my-2 my-lg-0">
+                                {% if app.user %}
+                                    <a href="{{ path('app_logout') }}" class="btn btn-outline-dark my-2 my-sm-0" >Déconnection</a>
+                                {% else %}
+                                    <a href="{{ path('app_login') }}" class="btn btn-outline-dark my-2 my-sm-0" >Maintenance</a>
+                                {% endif %}
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+        {% endif %}
+        {% if mode is defined and mode == 'monde' %}
+            <header>
+                <nav class="navbar fixed-top navbar-expand-lg navbar-light shadow-lg" style="background-color: #80E3EE;">
+                    <div class="container">
+                        <a class="navbar-brand" href="{{ path('app_home') }}">    <strong><img src="{{ asset('/icons/house-fill.svg') }}" data-placement="top" data-toggle="tooltip" title="Accueil" data-trigger="hover" width="20" height="20"></strong></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle"  href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <strong data-placement="top" data-toggle="tooltip" title="Données par continent" data-trigger="hover">Continents</strong>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        {% for donnee in continent_datas %}
+                                            <a class="dropdown-item" href="{{ path('app_continent', { 'continent': donnee[9] }) }}">{{ donnee[9] }}</a>
+                                        {% endfor %}
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <!--   --->
+                                </li>
+                            </ul>
+                            <form class="form-inline my-2 my-lg-0">
+                                {% if app.user %}
+                                    <a href="{{ path('app_logout') }}" class="btn btn-outline-dark my-2 my-sm-0" >Déconnection</a>
+                                {% else %}
+                                    <a href="{{ path('app_login') }}" class="btn btn-outline-dark my-2 my-sm-0" >Maintenance</a>
+                                {% endif %}
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+        {% endif %}
+        {% if mode is defined and mode == 'region' %}
+            <header>
+                <nav class="navbar fixed-top navbar-expand-lg navbar-light shadow-lg" style="background-color: #80E3EE;">
+                    <div class="container">
+                        <a class="navbar-brand" href="{{ path('app_home') }}">    <strong><img src="{{ asset('/icons/house-fill.svg') }}" data-placement="top" data-toggle="tooltip" title="Accueil" data-trigger="hover" width="20" height="20"></strong></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle"  href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <strong data-placement="top" data-toggle="tooltip" title="Départements par région" data-trigger="hover">Départements</strong>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        {% for donnee in departements %}
+                                            <a class="dropdown-item" href="{{ path('app_departement', { 'department': donnee.nom }) }}">{{ donnee.nom }}</a>
+                                        {% endfor %}
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('app_country') }}"   data-placement="top" data-toggle="tooltip" title="Données mondiales" data-trigger="hover"><strong>Monde</strong></a>
+                                </li>
+                            </ul>
+                            <form class="form-inline my-2 my-lg-0">
+                                {% if app.user %}
+                                    <a href="{{ path('app_logout') }}" class="btn btn-outline-dark my-2 my-sm-0" >Déconnection</a>
+                                {% else %}
+                                    <a href="{{ path('app_login') }}" class="btn btn-outline-dark my-2 my-sm-0" >Maintenance</a>
+                                {% endif %}
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+        {% endif %}
+        {% if mode is defined and mode == 'departements' %}
+            <header>
+                <nav class="navbar fixed-top navbar-expand-lg navbar-light shadow-lg" style="background-color: #80E3EE;">
+                    <div class="container">
+                        <a class="navbar-brand" href="{{ path('app_home') }}">    <strong><img src="{{ asset('/icons/house-fill.svg') }}" data-placement="top" data-toggle="tooltip" title="Accueil" data-trigger="hover" width="20" height="20"></strong></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"><strong></strong></a>
+                                </li>
+                            </ul>
+                            <form class="form-inline my-2 my-lg-0">
+                                {% if app.user %}
+                                    <a href="{{ path('app_logout') }}" class="btn btn-outline-dark my-2 my-sm-0" >Déconnection</a>
+                                {% else %}
+                                    <a href="{{ path('app_login') }}" class="btn btn-outline-dark my-2 my-sm-0" >Maintenance</a>
+                                {% endif %}
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+        {% endif %}
+
+        {% if mode is defined and mode == 'continent' %}
+            <header>
+                <nav class="navbar fixed-top navbar-expand-lg navbar-light shadow-lg" style="background-color: #80E3EE;">
+                    <div class="container">
+                        <a class="navbar-brand" href="{{ path('app_home') }}">    <strong><img src="{{ asset('/icons/house-fill.svg') }}" data-placement="top" data-toggle="tooltip" title="Accueil" data-trigger="hover" width="20" height="20"></strong></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('app_country') }}"   data-placement="top" data-toggle="tooltip" title="Données mondiales" data-trigger="hover"><strong>Monde</strong></a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle"  href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <strong data-placement="top" data-toggle="tooltip" title="Pays par continent comparé à la France " data-trigger="hover">Pays</strong>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        {%  for continent in continent_datas %}
+                                            <a class="dropdown-item" href="{{ path('app_pays', { 'pays': continent.name }) }}">{{ continent.name }}</a>
+                                        {%  endfor %}
+                                    </div>
+                                </li>
+
+                            </ul>
+                            <form class="form-inline my-2 my-lg-0">
+                                {% if app.user %}
+                                    <a href="{{ path('app_logout') }}" class="btn btn-outline-dark my-2 my-sm-0" >Déconnection</a>
+                                {% else %}
+                                    <a href="{{ path('app_login') }}" class="btn btn-outline-dark my-2 my-sm-0" >Maintenance</a>
+                                {% endif %}
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+        {% endif %}
+        {% if mode is defined and mode == 'pays' %}
+            <header>
+                <nav class="navbar fixed-top navbar-expand-lg navbar-light shadow-lg" style="background-color: #80E3EE;">
+                    <div class="container">
+                        <a class="navbar-brand" href="{{ path('app_home') }}">    <strong><img src="{{ asset('/icons/house-fill.svg') }}" data-placement="top" data-toggle="tooltip" title="Accueil" data-trigger="hover" width="20" height="20"></strong></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('app_country') }}"   data-placement="top" data-toggle="tooltip" title="Données mondiales" data-trigger="hover"><strong>Monde</strong></a>
+                                </li>
+
+                            </ul>
+                            <form class="form-inline my-2 my-lg-0">
+                                {% if app.user %}
+                                    <a href="{{ path('app_logout') }}" class="btn btn-outline-dark my-2 my-sm-0" >Déconnection</a>
+                                {% else %}
+                                    <a href="{{ path('app_login') }}" class="btn btn-outline-dark my-2 my-sm-0" >Maintenance</a>
+                                {% endif %}
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+        {% endif %}
+        {% if mode is defined and mode == 'login' or mode =='register' or mode == 'saisie' %}
+            <header>
+                <nav class="navbar fixed-top navbar-expand-lg navbar-light shadow-lg" style="background-color: #80E3EE;">
+                    <div class="container">
+                        <a class="navbar-brand" href="{{ path('app_home') }}">    <strong><img src="{{ asset('/icons/house-fill.svg') }}" data-placement="top" data-toggle="tooltip" title="Accueil" data-trigger="hover" width="20" height="20"></strong></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item dropdown">
+                                </li>
+                                <li class="nav-item">
+
+                                </li>
+                            </ul>
+
+                            <form class="form-inline my-2 my-lg-0">
+                                {% if app.user %}
+                                    <a href="{{ path('app_logout') }}" class="btn btn-outline-dark my-2 my-sm-0" >Déconnection</a>
+                                {% else %}
+                                    <a href="{{ path('app_login') }}" class="btn btn-outline-dark my-2 my-sm-0" >Maintenance</a>
+                                {% endif %}
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+        {% endif %}
+        <main role="main">
+            {% block body %}
+
+                {% block center %}{% endblock %}
+
+                {% block side %}{% endblock %}
+
+            {% endblock %}
+        </main>
+
+        <br/>
+        <footer class="footer mt-auto ">
+            <div class="container">
+
+                <div class="btn-group float-right">
+                    <p class="float-right">
+                        <a href="#" class="btn btn-sm btn-outline-primary">Haut</a>
+                    </p>
+                </div>
+                <p class="text-center text-dark">Contact : <strong class="text-danger">thdothee@gmail.com</strong></p>
+            </div>
+        </footer>         
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </body>
+</html>

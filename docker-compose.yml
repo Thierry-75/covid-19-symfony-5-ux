@@ -1,0 +1,20 @@
+version: '3'
+ 
+services:
+    database:
+        image: postgres:13-alpine
+        container_name: postgres-covid
+        environment:
+            POSTGRES_USER: enki 
+            POSTGRES_PASSWORD: enki
+            POSTGRES_DB: enki
+        ports: [5432]
+        
+    mailer:
+      image: schickling/mailcatcher
+      container_name: "mailer-covid"
+      ports: [1025, 1080]
+
+
+
+    

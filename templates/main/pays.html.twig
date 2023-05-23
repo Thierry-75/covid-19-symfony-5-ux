@@ -1,0 +1,200 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}covid-19 {{ nom1 }}-{{ nom2 }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div data-aos="fade-up">
+            <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+                <h1 class="display-4 ">
+                      <h3 class="text-center"> <span class="badge btn-warning">{{ nom1 | upper }}</span>&nbsp;<span class="badge btn-primary">{{ nom2 | upper }}</span></h3> 
+                </h1>
+                <p><h4 class="text-dark">Covid-19 &nbsp;{{ date }}</h4></p>
+                <p class="lead">Source : coronavirus-19-api.herokuapp.com </p>
+            </div>
+            <pre>
+  <div class="card mb-5 shadow-lg">
+      <div class="card-body">
+                        {{ render_chart(chartPays) }}
+      </div>
+  </div>
+            </pre>
+            <hr class="mb-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3 shadow text-center">
+                        <div class="card-header">
+                            <h4 class="my-0 fw-normal text-warning ">{{ donnees[1][0] }}</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-3 shadow text-center">
+                        <div class="card-header">
+                            <h4 class="my-0 fw-normal text-primary">{{ donnees[1][1] }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3 shadow text-center">
+                        <div class="card-header">
+                            <h4 class="my-0 fw-normal text-dark ">Cumul Cas</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title text-primary">
+                                <strong class="text-warning" >{{ donnees[2][0] }}</strong>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-3 shadow text-center">
+                        <div class="card-header">
+                            <h4 class="my-0 fw-normal text-dark">Cumul Cas</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title text-primary">
+                                <strong class="text-primary" >{{ donnees[2][1] }}</strong>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3 shadow text-center">
+                        <div class="card-header">
+                            <h4 class="my-0 fw-normal text-dark ">Hospitalisés</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title text-primary">
+                                <strong class="text-warning" >{{ donnees[6][0] }}</strong>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-3 shadow text-center">
+                        <div class="card-header">
+                            <h4 class="my-0 fw-normal text-dark">Hospitalisés</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title text-primary">
+                                <strong class="text-primary" >{{ donnees[6][1] }}</strong>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3 shadow text-center">
+                        <div class="card-header">
+                            <h4 class="my-0 fw-normal text-dark ">Décès</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title text-primary">
+                                <strong class="text-warning" >{{ donnees[3][0] }}</strong>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-3 shadow text-center">
+                        <div class="card-header">
+                            <h4 class="my-0 fw-normal text-dark">Décès</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title text-primary">
+                                <strong class="text-primary" >{{ donnees[3][1] }}</strong>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3 shadow text-center">
+                        <div class="card-header">
+                            <h4 class="my-0 fw-normal text-dark ">Guéris</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title text-primary">
+                                <strong class="text-warning" >{{ donnees[4][0] }}</strong>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-3 shadow text-center">
+                        <div class="card-header">
+                            <h4 class="my-0 fw-normal text-dark">Guéris</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title text-primary">
+                                <strong class="text-primary" >{{ donnees[4][1] }}</strong>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3 shadow text-center">
+                        <div class="card-header">
+                            <h4 class="my-0 fw-normal text-dark ">Cas pour 1 million</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title text-primary">
+                                <strong class="text-warning" >{{ donnees[7][0] }}</strong>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-3 shadow text-center">
+                        <div class="card-header">
+                            <h4 class="my-0 fw-normal text-dark">Cas pour 1 million</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title text-primary">
+                                <strong class="text-primary" >{{ donnees[7][1] }}</strong>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3 shadow text-center">
+                        <div class="card-header">
+                            <h4 class="my-0 fw-normal text-dark ">Décès pour 1 million</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title text-primary">
+                                <strong class="text-warning" >{{ donnees[8][0] }}</strong>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-3 shadow text-center">
+                        <div class="card-header">
+                            <h4 class="my-0 fw-normal text-dark">Décès pour 1 million</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title text-primary">
+                                <strong class="text-primary" >{{ donnees[8][1] }}</strong>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="mb-4">
+    </div>
+{% endblock %}

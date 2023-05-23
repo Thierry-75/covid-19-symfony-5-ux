@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}covid-19 ajout pays{% endblock %}
+
+{% block body %}
+          
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success" role="alert">{{ message }}</div>
+    {% endfor %}
+    <div class="container-fluid">
+  
+        <div class="row">
+            <div class="col-md-3">
+                {% block center %}
+                    &nbsp;
+                {% endblock %}
+            </div>
+{% if app.user %}
+            <div class="col-md-9" id="form_add">
+                {% block side %}
+                    <div class="alert alert-dismissible col-md-6">
+                        <h4 class="mb-4 text-center text-info">Saisie</h4>
+                        <hr class="mb-4">
+                    </div>
+                    {{ form_start(form_continent) }}
+                    <div class="form-group row">
+                        <div class="col-md-6 mb-3">
+                            {{ form_label(form_continent.pays," Pays :") }}
+                            <div class="input-group">
+                                {{ form_widget(form_continent.pays) }}
+                            </div>
+                            <div class="form-error">
+                                {{ form_errors(form_continent.pays )}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6 mb-3">
+                            {{ form_label(form_continent.zone, 'Continent :')}}
+                            {{ form_widget(form_continent.zone) }}
+                            <div class="form-error">
+                                {{ form_errors(form_continent.zone) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6 mb-3 ">
+
+                            {{ form_widget(form_continent.enregistrer,{ 'attr':{'class':'btn btn-warning'}} ) }}
+                        </div>
+                    </div>
+                    {{ form_end(form_continent) }}
+
+                {% endblock %}
+            </div>
+        </div>
+            {% endif %}
+    </div>
+{% endblock %}

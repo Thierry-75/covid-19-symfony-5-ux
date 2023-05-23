@@ -1,0 +1,134 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}covid-19 Monde
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div data-aos="fade-up">
+            <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+                <h1 class="display-4 ">
+
+                    <strong class="text-danger "><strong class="text-danger">{{ country }}</strong> 
+                </h1>
+                <p><h4 class="text-dark">Covid-19 </h4></p>
+             <h4 class="text-center"> <span class="badge btn-outline-danger">coronavirus-19-api.herokuapp.com</span></h4>
+            </div>
+            <pre>
+  <div class="card mb-5 shadow-lg">
+      <div class="card-body">
+                        {{ render_chart(chartWorld) }}
+      </div>
+  </div>
+            </pre>
+            <hr class="mb-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3 shadow text-center">
+                        <div class="card-header">
+                            <h4 class="my-0 fw-normal text-dark ">Cumul Cas</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title text-primary">
+                                <strong >{{ cas }}</strong>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-3 shadow text-center">
+                        <div class="card-header">
+                            <h4 class="my-0 fw-normal text-dark">Cumul Décès</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title text-primary">
+                                <strong >{{ deces }}</strong>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3 shadow text-center">
+                        <div class="card-header">
+                            <h4 class="my-0 fw-normal text-dark">Hospitalisés</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title text-primary">
+                                <strong >{{ hospitalise }}</strong>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-3 shadow text-center">
+                        <div class="card-header">
+                            <h4 class="my-0 fw-normal text-dark">Guéris</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title text-primary">
+                                <strong >{{ gueris }}</strong>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3 shadow text-center">
+                        <div class="card-header">
+                            <h4 class="my-0 fw-normal text-dark">Mort par million</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title text-primary">
+                                <strong >{{ deces_million }}</strong>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-3 shadow text-center">
+                        <div class="card-header">
+                            <h4 class="my-0 fw-normal text-dark">Cas par million</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title text-primary">
+                                <strong >{{ cas_million }}</strong>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="mb-4">
+            {{ knp_pagination_render(continent_datas,'main/pagination.html.twig') }}
+            <div class="row" data-aos="fade-up">
+                {% if continent_datas is defined %}
+                    {% for continent in continent_datas  %}
+                        <div class="col-md-6" id="card_index">
+                            <div class="card mb-4 text-center shadow-lg border-white">
+                                <div class="card-header">
+                                    <h4 class=" text-center text-primary">{{ continent[9] }}</h4>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text text-center">
+                                        Décès :&nbsp; <strong class="text-primary">{{ continent[6] }}</strong></p>
+                                    <p class="card-text text-center">
+                                        Guéris : &nbsp;<strong class="text-primary">{{ continent[2] }}</strong></p>
+                                    <small class="text-muted">
+                                        <div class="btn-group">
+                                            <a href="{{ path('app_continent', { 'continent': continent[9] }) }}" class="btn btn-sm btn-outline-warning">En savoir plus</a>
+                                        </div>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %} 
+            </div>
+            {{ knp_pagination_render(continent_datas,'main/pagination.html.twig') }}
+        </div>
+        <hr class="mb-4">
+    </div>
+{% endblock %}

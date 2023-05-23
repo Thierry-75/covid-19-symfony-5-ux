@@ -1,0 +1,201 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}covid-19 {{ nom }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div data-aos="fade-up">
+            <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+                 <h2 class="text-center"> <span class="badge btn-outline-danger">{{ nom }}</span></h2>
+                <p class="lead">{{ sourceType }}</p>
+                <p class="lead">Source : sante-publique-france-data &nbsp;
+                    {{ date | date('d-m-Y') }}</p>
+            </div>
+            <pre>
+  <div class="card mb-5 shadow-lg">
+      <div class="card-body">
+                        {{ render_chart(nouveau_region) }}
+      </div>
+  </div>
+            </pre>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3 shadow text-center">
+                        <div class="card-header">
+                            <h4 class="my-0 fw-normal">Nouvelle hospitalisation</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title" style="color: #169af2;">
+                                {% set base = 0 %}
+                                {{ taux_nellehospi }}
+                                {% if taux_nellehospi > base %}
+                                    <strong><img src="{{ asset('/icons/arrow-up-right-circle.svg') }}" alt="+" width="32" height="32"></strong>
+                                    {% elseif taux_nellehospi < base %}
+                                    <strong><img src="{{ asset('/icons/arrow-down-right-circle.svg') }}" alt="-" width="32" height="32"></strong>
+                                    {% else %}
+                                    <strong><img src="{{ asset('/icons/arrows-collapse.svg') }}" alt="=" width="32" height="32"></strong>
+                                    {% endif %}
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-3 shadow text-center">
+                        <div class="card-header ">
+                            <h4 class="my-0 fw-normal">Nouvelle réanimations</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title" style="color: #DCE316;">
+                                {% set base = 0 %}
+                                {{ taux_nellerea }}
+                                {% if taux_nellerea > base %}
+                                    <strong><img src="{{ asset('/icons/arrow-up-right-circle.svg') }}" alt="+" width="32" height="32"></strong>
+                                    {% elseif taux_nellerea < base %}
+                                    <strong><img src="{{ asset('/icons/arrow-down-right-circle.svg') }}" alt="-" width="32" height="32"></strong>
+                                    {% else %}
+                                    <strong><img src="{{ asset('/icons/arrows-collapse.svg') }}" alt="=" width="32" height="32"></strong>
+                                    {% endif %}
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mb-4">
+            <pre>
+  <div class="card mb-5 shadow-lg">
+      <div class="card-body">
+                        {{ render_chart(ancien_region) }}
+      </div>
+  </div>
+            </pre>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3 shadow text-center">
+                        <div class="card-header">
+                            <h4 class="my-0 fw-normal">Hospitalisation</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title" style="color: #169af2;">
+                                {% set base = 0 %}
+                                {{ taux_hospi }}
+                                {% if taux_hospi > base %}
+                                    <strong><img src="{{ asset('/icons/arrow-up-right-circle.svg') }}" alt="+" width="32" height="32"></strong>
+                                    {% elseif taux_hospi < base %}
+                                    <strong><img src="{{ asset('/icons/arrow-down-right-circle.svg') }}" alt="-" width="32" height="32"></strong>
+                                    {% else %}
+                                    <strong><img src="{{ asset('/icons/arrows-collapse.svg') }}" alt="=" width="32" height="32"></strong>
+                                    {% endif %}
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-3 shadow text-center">
+                        <div class="card-header ">
+                            <h4 class="my-0 fw-normal">Réanimations</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title" style="color: #DCE316;">
+                                {% set base = 0 %}
+                                {{ taux_rea }}
+                                {% if taux_rea > base %}
+                                    <strong><img src="{{ asset('/icons/arrow-up-right-circle.svg') }}" alt="+" width="32" height="32"></strong>
+                                    {% elseif taux_rea < base %}
+                                    <strong><img src="{{ asset('/icons/arrow-down-right-circle.svg') }}" alt="-" width="32" height="32"></strong>
+                                    {% else %}
+                                    <strong><img src="{{ asset('/icons/arrows-collapse.svg') }}" alt="=" width="32" height="32"></strong>
+                                    {% endif %}
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="mb-4">
+            <pre>
+  <div class="card mb-5 shadow-lg">
+      <div class="card-body">
+                        {{ render_chart(final_region) }}
+      </div>
+  </div>
+            </pre>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3 shadow text-center">
+                        <div class="card-header">
+                            <h4 class="my-0 fw-normal">Guéris</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title" style="color: #169af2;">
+                                {% set base = 0 %}
+                                {{ taux_gueris }}
+                                {% if taux_gueris > base %}
+                                    <strong><img src="{{ asset('/icons/arrow-up-right-circle.svg') }}" alt="+" width="32" height="32" /></strong>
+                                    {% elseif taux_gueris < base %}
+                                    <strong><img src="{{ asset('/icons/arrow-down-right-circle.svg') }}" alt="-" width="32" height="32" /></strong>
+                                    {% else %}
+                                    <strong><img src="{{ asset('/icons/arrows-collapse.svg') }}" alt="=" width="32" height="32" /></strong>
+                                    {% endif %}
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-3 shadow text-center">
+                        <div class="card-header ">
+                            <h4 class="my-0 fw-normal">Décès</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title" style="color: #DCE316;">
+                                {% set base = 0 %}
+                                {{ taux_deces }}
+                                {% if taux_deces > base %}
+                                    <strong><img src="{{ asset('/icons/arrow-up-right-circle.svg') }}" alt="+" width="32" height="32"></strong>
+                                    {% elseif taux_deces < base %}
+                                    <strong><img src="{{ asset('/icons/arrow-down-right-circle.svg') }}" alt="-" width="32" height="32"></strong>
+                                    {% elseif taux_deces == base %}
+                                    <strong><img src="{{ asset('/icons/arrows-collapse.svg') }}" alt="=" width="32" height="32"></strong>
+                                    {% endif %}
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=" text-sm-center">
+                <h2 class="text-center"> <span class="badge btn-outline-danger">Départements</span></h2>
+            </div>
+
+            {{ knp_pagination_render(departements,'main/pagination.html.twig') }}
+            <div class="row" data-aos="fade-up">
+                {% if departements is defined %}
+                    {% for departement in departements  %}
+                        <div class="col-md-6" id="card_index">
+                            <div class="card mb-4 border-white text-center shadow-lg">
+                                <div class="card-header">
+                                    <h6 class=" text-center text-primary">{{ departement.nom | upper }}</h6>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text text-center text-danger">
+                                        Décès :&nbsp; <strong class="text-primary">{{ departement.deces }}</strong></p>
+                                    <p class="card-text text-center text-danger">
+                                        Guéris : &nbsp;<strong class="text-primary">{{ departement.gueris }}</strong></p>
+                                    <small class="text-muted">
+                                        <div class="btn-group">
+                                            <a href="{{ path('app_departement',{'department':departement.nom} )}}" class="btn btn-sm btn-outline-warning">En savoir plus</a>
+                                        </div>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            {{ knp_pagination_render(departements,'main/pagination.html.twig') }}
+        </div>
+        <hr class="mb-4">
+    </div>
+    <!-- container -->
+{% endblock %}
