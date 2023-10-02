@@ -1,7 +1,6 @@
 #  covid-19
 
- utilité prendre en main le nouveau composant symfony ux
-- [x] symfony 5 symfony uix
+- [x] symfony 5 symfony iux chartjs
 - [ ] docker
-- [ ] api john hopkins a été supprimé
-- [ ] utilité prendre en main le nouveau composant symfony ux
+- [ ] api rest john hopkins connect
+- [ ] bootstrap
